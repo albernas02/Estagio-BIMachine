@@ -45,7 +45,7 @@ export function UserForm({ onClose, userData }: UserFormProps) {
 
   async function handleCreateEditUser(data: UserData) {
     try {
-      let response = await axios.post("http://127.0.0.1:3333/customer", {
+      let response = await axios.post("http://127.0.0.0.1:3333/customer", {
         name: data.name,
         phone: data.phone,
         email: data.email,
