@@ -5,7 +5,7 @@ export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     type: string;
 
     @Column()
@@ -16,4 +16,7 @@ export class Customer extends BaseEntity {
 
     @Column()
     email: string;
+
+    @Column()
+    city: string;
 }
