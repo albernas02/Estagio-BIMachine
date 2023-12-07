@@ -45,14 +45,19 @@ export function UserForm({ onClose, userData }: UserFormProps) {
 
   async function handleCreateEditUser(data: UserData) {
     try {
-      await axios.post("http://localhost:3333/customer", {
+      let response = await axios.post("http://localhost:3333/customer", {
         name: data.name,
         phone: data.phone,
         email: data.email,
         city: data.city,
       });
+
       toast.success("Muito obrigado pela confiança");
-      onClose();
+
+      if (response) {
+        window.location.href =
+          "https://register.bimachine.com/?origin=site&suborigin=home-button-top";
+      }
     } catch (error) {
       console.log("Hello");
       toast.error("Erro ao cadastrar");
@@ -61,25 +66,24 @@ export function UserForm({ onClose, userData }: UserFormProps) {
 
   return (
     <>
-    <FormProvider {...methods}>
-
-      <DivContainer>
-        <form onSubmit={handleSubmit(handleCreateEditUser)}>
-          <Input label="Nome" id="name" error={errors.name?.message} />
-          <Input label="E-mail" id="email" error={errors.email?.message} />
-          <Input label="Telefone" id="phone" error={errors.phone?.message} />
-          <Input label="Cidade" id="city" error={errors.city?.message} />
-          <ButtonContainer>
-            <Button label="Fazer teste grátis"/>
-            <Button
-              label="Continuar lendo"
-              variant="danger"
-              onClick={() => onClose()}
-            />
-          </ButtonContainer>
-        </form>
-      </DivContainer>
-    </FormProvider>
+      <FormProvider {...methods}>
+        <DivContainer>
+          <form onSubmit={handleSubmit(handleCreateEditUser)}>
+            <Input label="Nome" id="name" error={errors.name?.message} />
+            <Input label="E-mail" id="email" error={errors.email?.message} />
+            <Input label="Telefone" id="phone" error={errors.phone?.message} />
+            <Input label="Cidade" id="city" error={errors.city?.message} />
+            <ButtonContainer>
+              <Button label="Fazer teste grátis" />
+              <Button
+                label="Continuar lendo"
+                variant="danger"
+                onClick={() => onClose()}
+              />
+            </ButtonContainer>
+          </form>
+        </DivContainer>
+      </FormProvider>
     </>
   );
 }

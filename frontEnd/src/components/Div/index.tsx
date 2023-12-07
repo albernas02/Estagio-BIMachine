@@ -44,42 +44,25 @@ export function DivFull({ title, content, background, buttonLabel }: DivProps) {
     );
   }, [closeModalCreateUser, customModalStyles, isModalCreateUserOpen]);
 
-  if (background) {
-    return (
-      <>
-        <Div>
-          <h1>{title}</h1>
-          <div>
-            <section>
-              <img src={background} alt="" />
-            </section>
-            <section>
-              <h2>{content}</h2>
-              <Button
-                label={buttonLabel}
-                variant="primary"
-                onClick={openModalCreateUser}
-              ></Button>
-            </section>
-          </div>
-        </Div>
-        {modalCreateUser}
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Div>
-          <h1>{title}</h1>
-          <h2>{content}</h2>
-          <Button
-            label={buttonLabel}
-            variant="primary"
-            onClick={openModalCreateUser}
-          ></Button>
-        </Div>
-        {modalCreateUser}
-      </>
-    );
-  }
+  return (
+    <>
+      <Div>
+        <h1>{title}</h1>
+        <div>
+          <section>
+            <img src={background} alt="" />
+          </section>
+          <section>
+            <h2>{content}</h2>
+            <Button
+              label={buttonLabel}
+              variant="primary"
+              onClick={openModalCreateUser}
+            ></Button>
+          </section>
+        </div>
+      </Div>
+      {modalCreateUser}
+    </>
+  );
 }

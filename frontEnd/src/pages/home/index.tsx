@@ -1,18 +1,21 @@
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { ContentContainer, ModalContainer } from "../users/styles";
+import { StyleSheetManager } from "styled-components";
 import { UserForm } from "../users/components/UserForm";
 import Loading from "@/components/Input/Loading";
 import { DivFull } from "@/components/Div";
 import { Footer } from "@/components/Footer";
 import { Partners } from "@/components/Partners";
 import { H1Partners } from "@/components/Partners/styles";
+import { AuthGuard } from "@/components/AuthGuard";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Home() {
   const [isModalCreateUserOpen, setIsModalCreateUserOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { user, logout } = useContext(AuthContext);
   const customModalStyles = {
     content: {
       position: "absolute" as "absolute",
@@ -41,7 +44,7 @@ export default function Home() {
   }, [closeModalCreateUser, customModalStyles, isModalCreateUserOpen]);
 
   return (
-    <>
+    <AuthGuard>
       <Header />
       {loading ? (
         <Loading />
@@ -52,7 +55,7 @@ export default function Home() {
             content="Já pensou em ter todos os seus dados em um só lugar? 
             Venha conhecer a maior plataforma analytics da América latina"
             background="https://static.wixstatic.com/media/f8a472_6bc92d38d45e48fe9df6e9cce1bbf245~mv2.png/v1/fill/w_640,h_286,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f8a472_6bc92d38d45e48fe9df6e9cce1bbf245~mv2.png"
-            buttonLabel="Faça um teste grátis"
+            buttonLabel="COnheça nossa plataforma"
           />
           <DivFull
             title="Centralize o faturamento, defina suas metas"
@@ -67,14 +70,14 @@ export default function Home() {
              com sua equipe de maneira clara e concisa. Personalize seus relatórios,
              escolha entre uma variedade de gráficos e visualize seus dados de maneira intuitiva."
             background="https://www.acending.com/upload/thumbs_550//upload/produtos/Foto-1-ok.png"
-            buttonLabel="Faça um teste grátis"
+            buttonLabel="Seja um parceiro BIMachine"
           />
           <DivFull
             title="Centralize o faturamento, defina suas metas"
             content="Tenha uma visão completa das suas operações financeiras 
             e estabeleça metas claras para impulsionar o crescimento e o sucesso da sua empresa"
             background="https://assets-global.website-files.com/618d2912818669913e63c92e/643d7eedd3d6db360e385714_slide3.png"
-            buttonLabel="Faça um teste grátis"
+            buttonLabel="Comece seu teste grátis"
           />
           <DivFull
             title="Acesse as Informações da sua empresa de qualquer lugar"
@@ -82,7 +85,7 @@ export default function Home() {
             Tenha liberdade para explorar seus dados e criar insights de forma conveniente,
              a qualquer momento e em qualquer dispositivo."
             background="https://support.bimachine.com/wp-content/uploads/2023/05/460c3a88-4afd-41c3-8886-250031272b43.png"
-            buttonLabel="Faça um teste grátis"
+            buttonLabel="Traga seus dados"
           />
           <div>
             <H1Partners id="aux">Veja alguns de nossos parceiros</H1Partners>
@@ -96,6 +99,6 @@ export default function Home() {
         </>
       )}
       {modalCreateUser}
-    </>
+    </AuthGuard>
   );
 }
