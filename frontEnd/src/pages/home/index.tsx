@@ -55,7 +55,7 @@ export default function Home() {
             content="Já pensou em ter todos os seus dados em um só lugar? 
             Venha conhecer a maior plataforma analytics da América latina"
             background="https://static.wixstatic.com/media/f8a472_6bc92d38d45e48fe9df6e9cce1bbf245~mv2.png/v1/fill/w_640,h_286,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f8a472_6bc92d38d45e48fe9df6e9cce1bbf245~mv2.png"
-            buttonLabel="COnheça nossa plataforma"
+            buttonLabel="Conheça nossa plataforma"
           />
           <DivFull
             title="Centralize o faturamento, defina suas metas"
