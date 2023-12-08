@@ -22,24 +22,14 @@ export class CustomersController {
                 city: city,
             }).save();
 
-            await this.sendEmailWelcome(req, res);
+            // await this.sendEmailWelcome(req, res);
 
             return res.status(200).json(customer)
 
         } catch (error) {
             return res.status(404).json({ message: "Erro interno do servidor" })
         }
-    }
-
-    async list(req: Request, res: Response): Promise<Response> {
-        try {
-            let customers: Customer[] = await Customer.find();
-
-            return res.status(200).json(customers);
-        } catch (error) {
-            return res.status(200).json({ message: "Erro interno do servidor" });
-        }
-    }
+    }   
 
     async sendEmailWelcome(req: Request, res: Response): Promise<Response> {
         let body = req.body;

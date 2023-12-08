@@ -34,6 +34,5 @@ async function validarPayload(req: Request, res: Response, next: NextFunction): 
 
 let rotas: Router = Router();
 rotas.post("/customer", validarPayload, controller.create);
-rotas.get("/customer", controller.list);
 
 export default rotas;
