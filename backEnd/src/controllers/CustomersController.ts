@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Customer } from "../models/Customer";
+import * as puppeteer from "puppeteer";
+import * as nodemailer from "nodemailer";
 
 
 export class CustomersController {
@@ -19,8 +21,9 @@ export class CustomersController {
                 email: email,
                 city: city,
             }).save();
+            await this.sendEmailWelcome(name, email);
 
-            return res.status(200).json(customer)
+            return res.status(200).json(customer);
 
         } catch (error) {
             return res.status(404).json({ message: "Erro interno do servidor" })
@@ -36,4 +39,39 @@ export class CustomersController {
             return res.status(200).json({ message: "Erro interno do servidor" });
         }
     }
+
+    async sendEmailWelcome(name: string, email: string) {
+        let emailConfig = {
+            host: "smtp.office365.com",
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            tls: {
+                rejectUnauthorized: false,
+                ciphers: "SSLv3",
+            },
+            auth: {
+                user: "atur.albernas2002@outlook.com",
+                pass: process.env.PASS,
+            },
+        };
+
+        let mailOptions = {
+            from: "atur.albernas2002@outlook.com",
+            to: email,
+            subject: "Bem vindo a BIMachine",
+            html: `Estamos muito felizes em ter você conosco ${name}!`,
+        };
+
+        let transporter = nodemailer.createTransport(emailConfig);
+
+        transporter.sendMail(mailOptions, async function (error, info) {
+            if (error) {
+                console.log("Erro ao enviar email:" + error);
+            } else {
+                console.log("Email enviado: " + info.response);
+            }
+        });
+    }
+
 }
