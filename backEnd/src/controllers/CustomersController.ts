@@ -21,9 +21,10 @@ export class CustomersController {
                 email: email,
                 city: city,
             }).save();
-            await this.sendEmailWelcome(name, email);
 
-            return res.status(200).json(customer);
+            await this.sendEmailWelcome(req, res);
+
+            return res.status(200).json(customer)
 
         } catch (error) {
             return res.status(404).json({ message: "Erro interno do servidor" })
@@ -40,7 +41,9 @@ export class CustomersController {
         }
     }
 
-    async sendEmailWelcome(name: string, email: string) {
+    async sendEmailWelcome(req: Request, res: Response): Promise<Response> {
+        let body = req.body;
+
         let emailConfig = {
             host: "smtp.office365.com",
             port: 587,
@@ -58,9 +61,9 @@ export class CustomersController {
 
         let mailOptions = {
             from: "atur.albernas2002@outlook.com",
-            to: email,
+            to: body.email,
             subject: "Bem vindo a BIMachine",
-            html: `Estamos muito felizes em ter você conosco ${name}!`,
+            html: `Estamos muito felizes em ter você conosco ${body.name}!`,
         };
 
         let transporter = nodemailer.createTransport(emailConfig);
@@ -68,10 +71,14 @@ export class CustomersController {
         transporter.sendMail(mailOptions, async function (error, info) {
             if (error) {
                 console.log("Erro ao enviar email:" + error);
+                return res.status(401).send("Erro ao enviar email" + error);
             } else {
                 console.log("Email enviado: " + info.response);
+                return res.status(200).send("Email enviado: " + info.response);
             }
         });
+
+        return res.status(401);
     }
 
 }
