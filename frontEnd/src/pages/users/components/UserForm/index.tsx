@@ -51,7 +51,7 @@ export function UserForm({ onClose, userData }: UserFormProps) {
         email: data.email,
         city: data.city,
       });
-      let aux = await axios.post("http://177.44.248.27:3333/email", {
+      await axios.post("http://177.44.248.27:3333/email", {
         name: data.name,
         email: data.email,
       });
